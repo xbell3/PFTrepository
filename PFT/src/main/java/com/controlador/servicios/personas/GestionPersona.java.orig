@@ -1,0 +1,399 @@
+package com.controlador.servicios.personas;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped; //JEE8
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import com.controlador.servicios.CIValidator;
+import com.controlador.servicios.ClientResponse;
+import com.modelo.logica.personas.GestionPersonaService;
+import com.vista.personas.EncargadoDTO;
+import com.vista.personas.PersonaDTO;
+import com.vista.personas.PersonalDTO;
+
+import org.jboss.resteasy.util.HttpResponseCodes;
+
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.SessionScoped;
+
+@Named(value = "gestionPersona")
+@SessionScoped
+<<<<<<< HEAD
+public class GestionPersona implements Serializable {
+	private static final long serialVersionUID = 1L;
+=======
+public class GestionPersona implements Serializable{
+	 private static final long serialVersionUID = 1L;
+	 
+	 @Inject
+	 GestionPersonaService PersistenciaBean;
+	 
+	 private PersonaDTO personaSeleccionada;
+	 private EncargadoDTO encargadoSeleccionado;
+	 private PersonalDTO personalSeleccionado;
+	 
+	 private String rol;
+	 ArrayList<String> funcionalidadesEncargado=new ArrayList<>(Arrays.asList("listarUsuarios", "listarTerneras", "listarMedicamentos", "altaTernera", "altaMedicamento", "bajaTernera", "bajaMedicamento", "modificacionTernera", "modificacionMedicamento", "registrarMedicacion", "registrarAlimentacion","cargarHistoricos","listarHistoricos"));
+	 ArrayList<String> funcionalidadesPersonal=new ArrayList<>(Arrays.asList("registrarMedicacion","registrarAlimentacion"));
+	
+	 private FacesMessage facesMsg;
+	 private ClientResponse clientResponse;
+>>>>>>> 1571f21cafd23789357b53b8de484c23ab7c0f3d
+
+	@Inject
+	GestionPersonaService PersistenciaBean;
+
+	private PersonaDTO personaSeleccionada;
+	private EncargadoDTO encargadoSeleccionado;
+	private PersonalDTO personalSeleccionado;
+	private String ciAValidar;
+
+	private String rol;
+	ArrayList<String> funcionalidadesEncargado = new ArrayList<>(Arrays.asList("listarUsuarios", "listarTerneras",
+			"listarMedicamentos", "altaTernera", "altaMedicamento", "bajaTernera", "bajaMedicamento",
+			"modificacionTernera", "modificacionMedicamento", "registrarMedicacion", "registrarAlimentacion", "variacionesPeso"));
+	ArrayList<String> funcionalidadesPersonal = new ArrayList<>(
+			Arrays.asList("registrarMedicacion", "registrarAlimentacion"));
+
+	private FacesMessage facesMsg;
+	private ClientResponse clientResponse;
+	private CIValidator validator;
+
+	public GestionPersona() {
+
+	}
+
+	@PostConstruct
+	public void init() {
+		personaSeleccionada = new PersonaDTO();
+		encargadoSeleccionado = new EncargadoDTO();
+		personalSeleccionado = new PersonalDTO();
+		validator = new CIValidator();
+
+	}
+
+	public String salvarCambios() {
+		try {
+			ClientResponse cr = validator.validateCi(ciAValidar);
+			if (cr.getStatusCode() == HttpResponseCodes.SC_OK) {
+				personaSeleccionada.setCedula(Integer.valueOf(ciAValidar.replace("-", "").replace(".", "")));
+				switch (personaSeleccionada.getIdRol()) {
+					case 0:
+						clientResponse = PersistenciaBean.agregarPersona(personaSeleccionada);
+
+						if (clientResponse.getStatusCode() == HttpResponseCodes.SC_OK)
+							facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, clientResponse.getInternalCode(),
+									clientResponse.getMessage());
+						else
+							facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, clientResponse.getInternalCode(),
+									clientResponse.getMessage());
+						FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+						break;
+
+					case 1:
+						// Se relena el encargado
+						encargadoSeleccionado.setNombre(personaSeleccionada.getNombre());
+						encargadoSeleccionado.setApellido(personaSeleccionada.getApellido());
+						encargadoSeleccionado.setCedula(personaSeleccionada.getCedula());
+						encargadoSeleccionado.setEstado(personaSeleccionada.getEstado());
+						encargadoSeleccionado.setNombreUsuario(personaSeleccionada.getNombreUsuario());
+						encargadoSeleccionado.setContrasenia(personaSeleccionada.getContrasenia());
+						encargadoSeleccionado.setIdRol(1);
+						encargadoSeleccionado.setNombreRol("Encargado");
+
+						clientResponse = PersistenciaBean.agregarEncargadoTambo(encargadoSeleccionado);
+
+						if (clientResponse.getStatusCode() == HttpResponseCodes.SC_OK)
+							facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, clientResponse.getInternalCode(),
+									clientResponse.getMessage());
+						else
+							facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, clientResponse.getInternalCode(),
+									clientResponse.getMessage());
+						FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+						break;
+
+					case 2:
+						personalSeleccionado.setNombre(personaSeleccionada.getNombre());
+						personalSeleccionado.setApellido(personaSeleccionada.getApellido());
+						personalSeleccionado.setCedula(personaSeleccionada.getCedula());
+						personalSeleccionado.setEstado(personaSeleccionada.getEstado());
+						personalSeleccionado.setNombreUsuario(personaSeleccionada.getNombreUsuario());
+						personalSeleccionado.setContrasenia(personaSeleccionada.getContrasenia());
+						personalSeleccionado.setIdRol(2);
+						personalSeleccionado.setNombreRol("Personal");
+
+						clientResponse = PersistenciaBean.agregarPersonalTambo(personalSeleccionado);
+
+						if (clientResponse.getStatusCode() == HttpResponseCodes.SC_OK)
+							facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, clientResponse.getInternalCode(),
+									clientResponse.getMessage());
+						else
+							facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, clientResponse.getInternalCode(),
+									clientResponse.getMessage());
+						FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+						break;
+				}
+				return "";
+			}
+			else
+			{
+				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, cr.getInternalCode(), cr.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+
+		return "";
+
+	}
+
+	public String borrarUsuario(int cedula) {
+
+		try {
+			PersonaDTO personaNueva = PersistenciaBean.borrarPersona(cedula);
+			return "index.xhtml";
+		} catch (Exception e) {
+			FacesMessage facesMsgp = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"La persona que intenta borrar no existe", "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsgp);
+
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+/* Usar para filtrar por CI en listado, obligar a buscar sin puntos ni guíon
+	public PersonaDTO listarPersonaxCedula() {
+		try {
+			PersonaDTO personaNueva = PersistenciaBean.listarPersonaxCedula(personaSeleccionada.getCedula());
+			System.out.println("LISTARXCEDULA " + personaNueva.getNombre());
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					personaNueva.getNombre() + "\n" + personaNueva.getApellido(), "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+			return personaNueva;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+*/
+	public List<PersonaDTO> listarPersonas() {
+		try {
+			List<PersonaDTO> personas = PersistenciaBean.listarPersonas();
+			return personas;
+		} catch (Exception e) {
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String enviarPersonaBaja(Long idPersona) {
+		try {
+
+			PersonaDTO personaNueva = PersistenciaBean.listarPersonaxId(idPersona);
+
+			Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			sessionMap.put("persona", personaNueva);
+			return "BajaPersona.xhtml";
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "";
+	}
+
+	public String enviarPersonaModificacion(Long idPersona) {
+		try {
+			PersonaDTO personaNueva = PersistenciaBean.listarPersonaxId(idPersona);
+			Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			sessionMap.put("persona", personaNueva);
+			return "ModificacionPersona.xhtml";
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "";
+	}
+
+	public String Login(String nombreUsuario, String contrasenia) {
+		try {
+			PersonaDTO personaNueva = PersistenciaBean.loginPersona(nombreUsuario);
+
+<<<<<<< HEAD
+			if (personaNueva == null || personaNueva.getContrasenia().equals(contrasenia) == false) {
+=======
+				Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+				sessionMap.put("persona", personaNueva);
+				return "BajaPersona.xhtml";
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return "";
+		}
+		
+		public String enviarPersonaModificacion(Long idPersona) {
+			try {
+				PersonaDTO personaNueva = PersistenciaBean.listarPersonaxId(idPersona);
+				Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+				sessionMap.put("persona", personaNueva);
+				return "ModificacionPersona.xhtml";
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return "";
+		}
+	 
+		public String Login(String nombreUsuario, String contrasenia) {
+			try {
+				PersonaDTO personaNueva = PersistenciaBean.loginPersona(nombreUsuario);
+				
+				if (personaNueva == null || personaNueva.getContrasenia().equals(contrasenia) == false) {
+					FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario o contraseï¿½a son incorrectas.","");
+					FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+				} 
+				else {
+					// contraseÃ±a correcta, sigue el flujo
+					personaSeleccionada=new PersonaDTO();
+					rol=personaNueva.getNombreRol();
+					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", this);
+					Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+					System.out.println(sessionMap.get("user"));
+					return "Menu.xhtml";	
+				}
+
+			} catch (Exception e) {
+				// Persona no registrada
+>>>>>>> 1571f21cafd23789357b53b8de484c23ab7c0f3d
+				FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"El usuario o contraseña son incorrectas.", "");
+				FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+			} else {
+				// contraseÃ±a correcta, sigue el flujo
+				personaSeleccionada = new PersonaDTO();
+				rol = personaNueva.getNombreRol();
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", this);
+				Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+				System.out.println(sessionMap.get("user"));
+				return "Menu.xhtml";
+			}
+
+		} catch (Exception e) {
+			// Persona no registrada
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"El usuario o contraseÃ±a son incorrectas.", "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		}
+		return "";
+	}
+
+	public void actualizarPersona(PersonaDTO p) {
+		PersistenciaBean.editarPersona(p, encargadoSeleccionado, personalSeleccionado);
+	}
+
+	public String reset() {
+		personaSeleccionada = new PersonaDTO();
+		return "";
+	}
+
+	public GestionPersonaService getPersistenciaBean() {
+		return PersistenciaBean;
+	}
+
+	public void setPersistenciaBean(GestionPersonaService persistenciaBean) {
+		PersistenciaBean = persistenciaBean;
+	}
+
+	public PersonaDTO getPersonaSeleccionada() {
+		return personaSeleccionada;
+	}
+
+	public void setPersonaSeleccionada(PersonaDTO personaSeleccionada) {
+		this.personaSeleccionada = personaSeleccionada;
+	}
+
+	public EncargadoDTO getEncargadoSeleccionado() {
+		return encargadoSeleccionado;
+	}
+
+	public void setEncargadoSeleccionado(EncargadoDTO encargadoSeleccionado) {
+		this.encargadoSeleccionado = encargadoSeleccionado;
+	}
+
+	public PersonalDTO getPersonalSeleccionado() {
+		return personalSeleccionado;
+	}
+
+	public void setPersonalSeleccionado(PersonalDTO personalSeleccionado) {
+		this.personalSeleccionado = personalSeleccionado;
+	}
+
+	public String getCiAValidar() {
+		return ciAValidar;
+	}
+
+	public void setCiAValidar(String ciAValidar) {
+		this.ciAValidar = ciAValidar;
+	}
+
+	public String enviarListar() {
+		return "index.xhtml";
+	}
+
+	public String enviarAlta() {
+		return "AltaPersona.xhtml";
+	}
+
+	public String enviarModificacion() {
+		return "ModificacionPersona.xhtml";
+	}
+
+	public String enviarBaja() {
+		return "BajaPersona.xhtml";
+	}
+
+	public String volver() {
+		try {
+			return "Menu.xhtml";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public boolean iniciar(String funcionalidad) {
+		switch (rol) {
+			case "Administrador":
+				return false;
+			case "Encargado":
+				return !funcionalidadesEncargado.stream().filter(f -> f.equals(funcionalidad)).findAny().isPresent();
+			case "Personal":
+				return !funcionalidadesPersonal.stream().filter(f -> f.equals(funcionalidad)).findAny().isPresent();
+		}
+		return true;
+	}
+
+	public void mensaje(String mensaje) {
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+	}
+
+}

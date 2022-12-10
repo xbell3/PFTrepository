@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"> 
+<h:head>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/stylesForms.css"></link>
+</h:head>
+
+<body>
+	<div align="center">
+
+		<h:form>
+		
+		<h:messages id="messages" showDetail="true" globalOnly="true"
+			closable="true" style = "color:white;" />
+		
+		<h:message for="nombre" errorStyle="color: red" infoStyle="color: green" escape="false" /><br/>
+		<h:message for="apellido" errorStyle="color: red" infoStyle="color: green" escape="false"/><br/>
+		<h:message for="cedula" errorStyle="color: red" infoStyle="color: green" escape="false"/><br/>
+		<h:message for="nombreUsuario" errorStyle="color: red" infoStyle="color: green" escape="false"/><br/>
+		<h:message for="contrasenia" errorStyle="color: red" infoStyle="color: green" escape="false"/><br/>
+		<h:message for="titulo" errorStyle="color: red" infoStyle="color: green" escape="false"/><br/>
+		<h:message for="cantHoras" errorStyle="color: red" infoStyle="color: green" escape="false"/>
+		
+		<h:panelGrid columns="2" cellspacing="20" border="0" align="center" style="background-color:rgba(92, 158, 196, 0.56);">
+			<f:facet name="header">
+				<h:outputText style="font-size:28px;font-family:verdana;" value="Ingresar persona"> </h:outputText>
+			</f:facet>
+			<h:outputText class="h4" value="Nombre:"></h:outputText>
+			<h:inputText id="nombre" value="#{gestionPersona.personaSeleccionada.nombre}"></h:inputText>
+			
+			<h:outputText class="h4" value="Apellido:"></h:outputText>
+			<h:inputText id="apellido" value="#{gestionPersona.personaSeleccionada.apellido}"></h:inputText>
+			
+			<h:outputText class="h4" value="Cedula:"></h:outputText>
+			<h:inputText id="cedula" value="#{gestionPersona.ciAValidar}" required="true" requiredMessage="El campo no puede estar vacío">></h:inputText>
+			
+			<h:outputText class="h4" value="Nombre de usuario:"></h:outputText>
+			<h:inputText id="nombreUsuario" value="#{gestionPersona.personaSeleccionada.nombreUsuario}" required="true" requiredMessage="El campo no puede estar vacío">></h:inputText>
+			
+			<h:outputText class="h4" value="Contraseña:" required="true" requiredMessage="El campo no puede estar vacío">></h:outputText>
+			<h:inputSecret type="password" 
+						style="
+						font-size:15px;
+						width: 100%;
+						padding: 5px 0px;
+						margin: 0px 0;
+						display: inline-block;
+						border: 1px solid #ccc;
+						border-radius: 5px;
+						box-sizing: border-box;" 
+						id="contrasenia" value="#{gestionPersona.personaSeleccionada.contrasenia}">
+			</h:inputSecret>
+			
+			
+			<h:outputText class="h4" value="Rol de usuario:"></h:outputText>
+			<h:selectOneMenu class="combobox" id="rol" value="#{gestionPersona.personaSeleccionada.idRol}">
+				<f:selectItem itemValue="" itemLabel="Seleccionar"/>
+				<f:selectItem itemValue="0" itemLabel="Administrador"/>
+				<f:selectItem itemValue="1" itemLabel="Encargado"/>
+				<f:selectItem itemValue="2" itemLabel="Personal" />
+				<f:ajax listener="#{gestionPersona.validarCamposEspecificos}" event="change" render="titulo cantHoras"/>
+			</h:selectOneMenu>
+
+			<h:outputText class="h4" value="Titulo:"></h:outputText>
+			<h:inputText id="titulo" value="#{gestionPersona.encargadoSeleccionado.titulo}" disabled="#{gestionPersona.tituloPermitido}"></h:inputText>
+			
+			<h:outputText class="h4 especificos" value="Cant de horas:"></h:outputText>
+			<h:inputText id="cantHoras" value="#{gestionPersona.personalSeleccionado.cantHoras}" disabled="#{gestionPersona.cantHorasPermitido}"></h:inputText>	
+				
+			<f:facet name="footer">
+			<h:button class="button button3" outcome="Menu" value="Volver">
+				</h:button>
+				<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<h:commandButton id="link" class="button button1" value="Ingresar"
+					action="#{gestionPersona.salvarCambios}">
+			</h:commandButton>
+			</f:facet>
+			
+			</h:panelGrid>
+			
+		</h:form>
+	</div>
+</body>
+</html>

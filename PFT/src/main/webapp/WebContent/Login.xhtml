@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+ 
+<h:head>
+<style>
+body{
+background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-image:url('assets/img/Background.png');
+}
+
+	
+h1,h2,h3,h4,h5,h6{
+color:white;
+font-weight:bold;
+}
+
+</style>
+</h:head> 
+<body>
+
+<div align="center">
+<h:form id="idDatosLogin">
+<br/><br/><br/><br/><br/><br/><br/><br/>
+		<h:graphicImage value="assets/img/LogoUtekne.png" width="200" height="200"/>
+		<h2>Ingreso de usuarios</h2>
+		<h:messages id="messages" showDetail="true" globalOnly="true" closable="true" style = "color:white;"/>
+		<table>
+			<tr>
+				<td style="width:10"><p style="color:white;font-size:18px;text-align:center;">Usuario:</p>
+				<h:inputText id="nombreUsuario" value="#{gestionPersona.nombreUsuarioLogin}" style="text-align:center;"></h:inputText></td>			
+			
+			</tr>
+			<tr> 
+				<td style="width:10"><p style="color:white;font-size:18px;text-align:center;">Contraseña:</p>
+				<h:inputSecret type="password" id="contrasenia" value="#{gestionPersona.contraseniaLogin}"></h:inputSecret></td>	
+			</tr>
+		</table>
+		<p>
+			<h:commandButton id="link" value="Entrar"
+				action="#{gestionPersona.Login()}" 
+				style="width:100px;height:30px">
+			</h:commandButton>
+
+				<h:commandButton id="ldap" value="Entrar por AD"
+					action="#{gestionPersona.LoginAD(
+                gestionPersona.personaSeleccionada.nombreUsuario,
+                gestionPersona.personaSeleccionada.contrasenia
+                )}"
+					style="width:100px;height:30px">
+				</h:commandButton>
+			</p>
+		</h:form>
+		
+</div>
+</body> 
+</html>

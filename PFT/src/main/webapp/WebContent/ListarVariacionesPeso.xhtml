@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" type="text/css" href="css/stylesIndex.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/stylesForms.css"></link>
+
+</h:head>
+<body>
+
+	<div align="center">
+		<br /> <br />
+		<h:outputText style="font-size:28px;font-family:verdana;color:white;"
+			value="Listado de variaciones de peso">
+		</h:outputText>
+				<br/><br/>
+
+				<h:outputText
+						style="font-size:18px;font-family:verdana;color:white;"
+						value="Variaciones de peso de terneras">
+					</h:outputText>
+		<h:form>
+
+			<h:messages id="messages" showDetail="true" globalOnly="true"
+				closable="true" style="color:white;" />
+			<h:panelGrid columns="2" cellspacing="20" border="0" align="center"
+				style="background-color:rgba(92, 158, 196, 0.56);">
+
+			
+					
+				<h:outputText class="h4" value="SNIG:"></h:outputText>
+				<h:inputText id="snig" value="#{gestionVariaciones.snig}"></h:inputText>
+
+				<h:outputText class="h4" value="Fecha inicio:"></h:outputText>
+				<h:inputText id="fchaInicioTernera"
+					value="#{gestionVariaciones.fechaInicio}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:outputText class="h4" value="Fecha fin:"></h:outputText>
+				<h:inputText id="fechaFinTernera"
+					value="#{gestionVariaciones.fechaFin}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:commandButton value="Listar variacion"
+					action="#{gestionVariaciones.listarVariacionPesoPorTernera()}">
+				</h:commandButton>
+				
+				<h:dataTable value="#{gestionVariaciones.variacionesTernera}" var="variacionPeso"
+			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">Peso (Kgs)</f:facet>
+				<h:outputText value="#{variacionPeso.peso}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fecha de pesaje</f:facet>
+				<h:outputText value="#{variacionPeso.fecPeso}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Peso anterior (Kgs)r</f:facet>
+				<h:outputText value="#{variacionPeso.pesoAnterior}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ganancia / Perdida (Kgs)</f:facet>
+				<h:outputText style="color: #{variacionPeso.ganancia eq 0 ? 'black' : variacionPeso.ganancia gt 0 ? 'green' : 'red'};" value="#{variacionPeso.ganancia}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+
+			</h:panelGrid>
+		</h:form>
+		<br/><br/>
+
+				<h:outputText
+						style="font-size:18px;font-family:verdana;color:white;"
+						value="Variaciones de peso de guachera">
+					</h:outputText>
+		<h:form>
+
+			<h:panelGrid columns="2" cellspacing="20" border="0" align="center"
+				style="background-color:rgba(92, 158, 196, 0.56);">
+
+				<h:outputText class="h4" value="Id Guachera"></h:outputText>
+				<h:inputText id="idguachera"
+					value="#{gestionVariaciones.idGuachera}"></h:inputText>
+
+				<h:outputText class="h4" value="Fecha inicio:"></h:outputText>
+				<h:inputText id="fchaInicioGuachera"
+					value="#{gestionVariaciones.fechaInicio}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:outputText class="h4" value="Fecha fin:"></h:outputText>
+				<h:inputText id="fechaFinGuachera"
+					value="#{gestionVariaciones.fechaFin}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:commandButton value="Listar variaciones"
+					action="#{gestionVariaciones.listarVariacionPesoPorGuachera()}">
+				</h:commandButton>
+
+<h:dataTable value="#{gestionVariaciones.variacionesGuachera}" var="variacionPeso"
+			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">Peso (Kgs)</f:facet>
+				<h:outputText value="#{variacionPeso.peso}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fecha de pesaje</f:facet>
+				<h:outputText value="#{variacionPeso.fecPeso}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Peso anterior (Kgs)</f:facet>
+				<h:outputText value="#{variacionPeso.pesoAnterior}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ganancia / Perdida (Kgs)</f:facet>
+				<h:outputText style="color: #{variacionPeso.ganancia eq 0 ? 'black' : variacionPeso.ganancia gt 0 ? 'green' : 'red'};" value="#{variacionPeso.ganancia}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+
+			</h:panelGrid>
+		</h:form>
+		<h:button class="button button3" outcome="Menu" value="Volver">
+		</h:button>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<link rel="stylesheet" type="text/css" href="css/stylesIndex.css"></link>
+</h:head> 
+<body> 
+<div align="center">
+<br/><br/><br/><br/><br/><br/><br/>
+<h:outputText style="font-size:28px;font-family:verdana;color:white;" value="Listado de personas"> </h:outputText>
+
+<h:form>
+<br/>
+	<h:dataTable value="#{gestionPersona.listarPersonas()}" var="persona"
+			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">Nombre</f:facet>
+				<h:outputText value="#{persona.nombre}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Apellido</f:facet>
+				<h:outputText value="#{persona.apellido}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cedula</f:facet>
+				<h:outputText value="#{persona.cedula}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">NombreUsuario</f:facet>
+				<h:outputText value="#{persona.nombreUsuario}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Rol</f:facet>
+				<h:outputText value="#{persona.nombreRol}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandButton class="button button1" action="#{gestionPersona.enviarPersonaModificacion(persona.idpersona)}" value="Editar" disabled="#{gestionPersona.iniciar('modificacion')}"></h:commandButton>
+			</h:column>
+			 
+			<h:column>
+				<f:facet name="header">Eliminar</f:facet>
+				<h:commandButton class="button button2" action="#{gestionPersona.enviarPersonaBaja(persona.idpersona)}" value="Eliminar" disabled="#{gestionPersona.iniciar('borrar')}"></h:commandButton>
+			</h:column>
+		</h:dataTable>
+<br/>
+			
+      			<h:button class="button button3" outcome="Menu" value="Volver">
+				</h:button> 
+			
+</h:form>
+</div>
+</body> 
+</html>

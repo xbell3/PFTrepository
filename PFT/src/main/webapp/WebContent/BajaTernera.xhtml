@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<!-- ESTILO CSS -->
+<link rel="stylesheet" type="text/css" href="css/stylesForms.css"></link>
+</h:head> 
+<body>
+	<div align="center" style="margin: 150px">
+		<h:form>
+			<h:messages id="messages" showDetail="true" globalOnly="true" closable="true" style="color:red;" />
+			<h:message for="snig" errorStyle="color: red" infoStyle="color: green" escape="false" />
+			<br />
+			<h:panelGrid columns="2" cellspacing="20" border="0" align="center"
+				style="background-color:rgba(92, 158, 196, 0.56);">
+				<f:facet name="header">
+					<h:outputText style="font-size:28px;font-family:verdana;"
+						value="Borrar Ternera">
+					</h:outputText>
+				</f:facet>
+
+				<h:outputText class="h4" value="SNIG:"></h:outputText>
+				<h:inputText id="snig" value="#{ternera.snig}"></h:inputText>
+
+
+				<f:facet name="footer">
+					<h:button class="button button3" outcome="ListaTernera" value="Volver">
+					</h:button>
+					<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+						&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					<h:commandButton class="button button2" id="link" value="Borrar"
+						action="#{gestionTernera.borrarTernera(ternera.snig)}">
+					</h:commandButton>
+				</f:facet>
+			</h:panelGrid>
+
+
+
+
+		</h:form>
+	</div>
+</body> 
+</html>

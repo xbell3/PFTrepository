@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<!-- ESTILO CSS -->
+<link rel="stylesheet" type="text/css" href="css/stylesMenu.css"></link>
+
+</h:head> 
+<body> 
+<table>
+	<tr>
+		<th>
+<div align="left">
+<h:form>
+<h:panelGrid columns="1" cellspacing="20" border="0" align="center" style="background-color:rgba(92, 158, 196, 0.56);margin:80px;">
+
+	<f:facet name="header">
+			<h:outputText style="font-size:28px;font-family:verdana;" value="Gestión de Usuarios"> </h:outputText>
+			</f:facet>
+			
+			<h:button class="button button1" outcome="ListarUsuarios" value="Listar Usuarios" style="width:100%;" disabled="#{gestionPersona.iniciar('listarUsuarios')}">
+			</h:button>
+	
+			<h:button  class="button button1" outcome="AltaPersona" value="Nuevo Usuario" style="width:100%;" disabled="#{gestionPersona.iniciar('altaUsuario')}">
+			</h:button >
+			
+			<h:button  class="button button1" outcome="ModificacionPersona" value="Modificar Usuario" style="width:100%;" disabled="#{gestionPersona.iniciar('modificacionUsuario')}">
+			</h:button >
+			
+			<h:button class="button button2" outcome="BajaPersona" value="Borrar Usuario" style="width:100%;" disabled="#{gestionPersona.iniciar('borrarUsuario')}">
+			</h:button>
+</h:panelGrid>
+</h:form>
+</div>
+		</th>
+		<th>
+<div align="center">
+<h:form>
+<h:panelGrid columns="1" cellspacing="20" border="0" align="center" style="background-color:rgba(92, 158, 196, 0.56);margin:80px;">
+
+<f:facet name="header">
+			<h:outputText style="font-size:28px;font-family:verdana;" value="Gestión de Terneras"> </h:outputText>
+			</f:facet>
+
+			<h:button class="button button1" outcome="ListaTernera" value="Listar Terneras" style="width:100%;" disabled="#{gestionPersona.iniciar('listarTerneras')}">
+			</h:button>
+			
+			<h:button class="button button1" outcome="#{gestionTernera.saveTerneraInSession()}" value="Alta Ternera" style="width:100%;" disabled="#{gestionPersona.iniciar('altaTernera')}">
+			</h:button>
+			
+			<h:button class="button button1" outcome="ModificacionTernera" value="Modificar Ternera" style="width:100%;" disabled="#{gestionPersona.iniciar('modificacionTernera')}">
+			</h:button>
+			
+			<h:button class="button button2" outcome="BajaTernera" value="Borrar Ternera" style="width:100%;" disabled="#{gestionPersona.iniciar('bajaTernera')}">
+			</h:button>
+			
+			<hr></hr>
+			
+			<h:button class="button button3" outcome="#{gestionMedicacion.saveMedicacionInSession()}" value="Registrar Medicación" style="width:100%;" disabled="#{gestionPersona.iniciar('registrarMedicacion')}">
+			</h:button>
+			
+			<h:button class="button button3" outcome="#{gestionAlimentacion.saveAlimentacionInSession()}" value="Registrar Alimentación" style="width:100%;" disabled="#{gestionPersona.iniciar('registrarAlimentacion')}">
+			</h:button>
+			
+			<h:button class="button button3" outcome="ListarCostos" value="Costos de alimentacion" style="width:100%;" disabled="#{gestionPersona.iniciar('listarCostos')}">
+			</h:button>
+			
+			<h:button class="button button3" outcome="CargaDatos" value="Cargar datos" style="width:100%;" disabled="#{gestionPersona.iniciar('cargarHistoricos')}">
+			</h:button>
+			
+			<h:button class="button button3" outcome="ListaHistoricos" value="Listar historicos" style="width:100%;" disabled="#{gestionPersona.iniciar('listarHistoricos')}">
+			</h:button>
+			
+</h:panelGrid>
+</h:form>
+</div>
+		</th>
+		<th>
+<div align="right">
+<h:form>
+<h:panelGrid columns="1" cellspacing="20" border="0" align="center" style="background-color:rgba(92, 158, 196, 0.56);margin:80px;">
+	
+	<f:facet name="header">
+			<h:outputText style="font-size:28px;font-family:verdana;" value="Gestión de Medicamentos"> </h:outputText>
+			</f:facet>
+	
+			<h:button class="button button1" outcome="ListaMedicamento" value="Listar Medicamentos" style="width:100%;" disabled="#{gestionPersona.iniciar('listarMedicamentos')}">
+			</h:button>
+	
+			<h:button class="button button1" outcome="#{gestionMedicamento.saveMedicamentoInSession()}" value="Alta Medicamento" style="width:100%;" disabled="#{gestionPersona.iniciar('altaMedicamento')}">
+			</h:button>
+			
+			<h:button class="button button1" outcome="ModificacionMedicamento" value="Modificar Medicamento" style="width:100%;" disabled="#{gestionPersona.iniciar('modificacionMedicamento')}">
+			</h:button>
+			
+			<h:button class="button button2" outcome="BajaMedicamento" value="Borrar Medicamento" style="width:100%;" disabled="#{gestionPersona.iniciar('bajaMedicamento')}">
+			</h:button>
+			
+			
+<<<<<<< HEAD
+			<h:button class="button button2" outcome="#{gestionAlimentacion.saveAlimentacionInSession()}" value="Registrar Alimentación" style="width:100%;" disabled="#{gestionPersona.iniciar('registrarAlimentacion')}">
+			</h:button>
+			
+			<h:button class="button button2" outcome="ListarCostos" value="Costos de alimentacion" style="width:100%;" disabled="#{gestionPersona.iniciar('listarCostos')}">
+			</h:button>
+			
+			<h:button class="button button2" outcome="ListarVariacionesPeso" value="Variaciones de peso" style="width:100%;" disabled="#{gestionPersona.iniciar('variacionesPeso')}">
+			</h:button>
+=======
+>>>>>>> 1571f21cafd23789357b53b8de484c23ab7c0f3d
+</h:panelGrid>
+</h:form>
+</div>
+		
+		</th>
+	</tr>
+</table>
+
+<div align="center">
+<h:form>
+<hr style="width:10%;"></hr>
+
+			<div align="center">
+			<h:button id="link" value="Cerrar sessión" class="button button3"
+					outcome="Login" style="width:20%;">
+			</h:button>
+			</div>
+			<div align="center"><h5>© Utekne 2022</h5></div>
+			
+
+
+
+</h:form>
+</div>
+</body> 
+</html>

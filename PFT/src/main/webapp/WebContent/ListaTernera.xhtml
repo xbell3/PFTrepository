@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<link rel="stylesheet" type="text/css" href="css/stylesIndex.css"></link>
+</h:head> 
+<body> 
+
+<div align="center">
+<br/><br/><br/><br/><br/><br/><br/>
+<h:outputText style="font-size:28px;font-family:verdana;color:white;" value="Listado de Terneras"> </h:outputText>
+
+<h:form>
+<br/>
+	<h:dataTable value="#{gestionTernera.listarTerneras()}" var="ternera"
+			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{ternera.idLocal}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">SNIG</f:facet>
+				<h:outputText value="#{ternera.snig}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">SNIG Madre</f:facet>
+				<h:outputText value="#{ternera.snigMadre}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">SNIG Padre</f:facet>
+				<h:outputText value="#{ternera.snigPadre}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fecha de nacimiento</f:facet>
+				<h:outputText value="#{gestionTernera.fechaString(ternera.fecNac)}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Raza</f:facet>
+				<h:outputText value="#{ternera.raza.raza}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Tipo de Parto</f:facet>
+				<h:outputText value="#{ternera.tipoParto.tipoParto}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandButton class="button button1" action="#{gestionTernera.enviarTerneraModificacion(ternera.snig)}" value="Editar" disabled="#{gestionPersona.iniciar('modificacion')}"></h:commandButton>
+			</h:column>
+			 
+			<h:column>
+				<f:facet name="header">Eliminar</f:facet>
+				<h:commandButton class="button button2" action="#{gestionTernera.enviarTerneraBaja(ternera.snig)}" value="Eliminar" disabled="#{gestionPersona.iniciar('borrar')}"></h:commandButton>
+			</h:column>
+		</h:dataTable>
+<br/>
+			
+      			<h:button class="button button3" outcome="Menu" value="Volver">
+				</h:button> 
+			
+</h:form>
+</div>
+
+</body> 
+</html>

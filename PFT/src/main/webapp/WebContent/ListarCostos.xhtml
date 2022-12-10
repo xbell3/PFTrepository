@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<link rel="stylesheet" type="text/css" href="css/stylesIndex.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/stylesForms.css"></link>
+
+</h:head> 
+<body>
+<div align="center">
+<br /> <br />
+		<h:outputText style="font-size:28px;font-family:verdana;color:white;"
+			value="Listado de costos de alimentacion">
+		</h:outputText>
+		<br/>
+		<br/>
+		
+	<div align="left" style="padding-left:15%">
+		
+
+		<h:form style="float: left; padding-right:10%">
+
+			<h:messages id="messages" showDetail="true" globalOnly="true"
+				closable="true" style="color:white;" />
+			<h:panelGrid columns="2" cellspacing="20" border="0" align="center"
+				style="background-color:rgba(92, 158, 196, 0.56);">
+
+				<h:outputText class="h4" value="SNIG:"></h:outputText>
+				<h:inputText id="snig" value="#{gestionCosto.snig}"></h:inputText>
+
+				<h:outputText class="h4" value="Fecha inicio:"></h:outputText>
+				<h:inputText id="fchaInicioTernera"
+					value="#{gestionCosto.fechaInicio}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:outputText class="h4" value="Fecha fin:"></h:outputText>
+				<h:inputText id="fechaFinTernera" value="#{gestionCosto.fechaFin}"
+					required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:commandButton value="Listar costos" class="button button1"
+					action="#{gestionCosto.listarCostosAlimentacionPorTernera()}">
+				</h:commandButton>
+<br/>
+				<h:outputText class="h4" value="Costo de ternera:"></h:outputText>
+				<h:inputText id="costoTernera" value="#{gestionCosto.costoTernera}"
+			disabled="true" style="color:blue"></h:inputText>
+			</h:panelGrid>
+		</h:form>
+		
+		<h:form style="float: center">
+
+			<h:panelGrid columns="2" cellspacing="20" border="0" align="right"
+				style="background-color:rgba(92, 158, 196, 0.56);">
+
+				<h:outputText class="h4" value="Id Guachera"></h:outputText>
+				<h:inputText id="idguachera" value="#{gestionCosto.idGuachera}"></h:inputText>
+
+				<h:outputText class="h4" value="Fecha inicio:"></h:outputText>
+				<h:inputText id="fchaInicioGuachera"
+					value="#{gestionCosto.fechaInicio}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:outputText class="h4" value="Fecha fin:"></h:outputText>
+				<h:inputText id="fechaFinGuachera" value="#{gestionCosto.fechaFin}"
+					required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3" />
+				</h:inputText>
+
+				<h:commandButton value="Listar costos" class="button button1"
+					action="#{gestionCosto.listarCostosAlimentacionPorGuachera()}">
+				</h:commandButton>
+				<br/>
+				<h:outputText class="h4" value="Costo de guachera:"></h:outputText>
+				<h:inputText id="costoGuachera" value="#{gestionCosto.costoGuachera}"
+			disabled="true" style="color:blue"></h:inputText>
+
+			
+
+			</h:panelGrid>
+			
+		</h:form>
+		
+		
+			
+			
+			
+	</div>
+	
+</div>
+<div align="center">
+			<br/>
+			<h:button class="button button3" outcome="Menu" value="Volver">
+		</h:button>
+			</div>
+</body> 
+</html>

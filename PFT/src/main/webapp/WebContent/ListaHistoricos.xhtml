@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<link rel="stylesheet" type="text/css" href="css/stylesIndex.css"></link>
+</h:head> 
+<body> 
+<div align="center">
+<br/><br/><br/><br/><br/><br/><br/>
+<h:outputText style="font-size:28px;font-family:verdana;color:white;" value="Listado de datos historicos de enfermedad"> </h:outputText>
+<h:form>
+<br/>
+<h:messages id="messages" showDetail="true" globalOnly="true"
+			closable="true" style = "color:white;" />
+<h:dataTable value="#{gestionEnfermedad.listarHistoricos()}" var="historico"
+			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row">
+    			<h:column>
+				<f:facet name="header">SNIG</f:facet>
+				<h:outputText value="#{historico.SNIG}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Enfermedad</f:facet>
+				<h:outputText value="#{historico.nombreEnfermedad}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Variante</f:facet>
+				<h:outputText value="#{historico.variante}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Gravedad</f:facet>
+				<h:outputText value="#{historico.severidad}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fecha de detección</f:facet>
+				<h:outputText value="#{gestionEnfermedad.fechaString(historico.fecDeteccion)}"></h:outputText>
+			</h:column>
+    			
+ </h:dataTable>
+ 
+</h:form>
+
+<div align="center">
+			<h:button id="link" value="Volver" class="button button3"
+					outcome="Menu" >
+			</h:button>
+			</div>
+			<div align="center"><h5>© Utekne 2022</h5></div>
+
+</div>
+</body> 
+</html>

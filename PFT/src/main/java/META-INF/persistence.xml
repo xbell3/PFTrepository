@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="PFT">
+	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<jta-data-source>java:/APPWEBDS</jta-data-source>
+	
+	<!--  PERSONA -->
+	<class>com.controlador.persistencia.entidades.permisos.Funcionalidad</class>
+	<class>com.controlador.persistencia.entidades.permisos.Rol</class>
+	<class>com.controlador.persistencia.entidades.persona.EncargadoTambo</class>
+	<class>com.controlador.persistencia.entidades.persona.PersonaTambo</class>
+	<class>com.controlador.persistencia.entidades.persona.PersonalTambo</class>
+	
+	<!--  TERNERA -->
+	<class>com.controlador.persistencia.entidades.ternera.RazaTambo</class>
+	<class>com.controlador.persistencia.entidades.ternera.TerneraTambo</class>
+	<class>com.controlador.persistencia.entidades.ternera.TipoPartoTambo</class>
+	
+	<!-- MEDICAMENTO -->
+	<class>com.controlador.persistencia.entidades.medicamento.MedicamentoTambo</class>
+	<class>com.controlador.persistencia.entidades.medicamento.RegistroMedicacionTambo</class>
+	<class>com.controlador.persistencia.entidades.medicamento.TipoMedicamentoTambo</class>
+	
+	<!-- ALIMENTO -->
+	<class>com.controlador.persistencia.entidades.alimento.AlimentoTambo</class>
+	<class>com.controlador.persistencia.entidades.alimento.RegistroAlimentacionTambo</class>
+	<class>com.controlador.persistencia.entidades.alimento.UnidadTambo</class>
+		
+	<!-- ENFERMEDAD -->
+	<class>com.controlador.persistencia.entidades.enfermedad.EnfermedadTambo</class>
+	<class>com.controlador.persistencia.entidades.enfermedad.GravedadTambo</class>
+
+	<properties>
+                        <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+
+                        <property name="hibernate.hbm2ddl.auto" value="validate"/>
+
+                        <property name="hibernate.show_sql" value="true"/>
+
+                        <property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+                        <property name="javax.persistence.schema-generation.database.action" value="validate"/>
+                        
+                </properties>
+	</persistence-unit>
+</persistence>
